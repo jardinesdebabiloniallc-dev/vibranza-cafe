@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0F4D47">
+
+<!-- ============ SEO ============ -->
+<title>Vibranza · Coffee Roaster & Postres ☕ | Pedidos por WhatsApp</title>
+<meta name="description" content="Vibranza: café de especialidad tostado en casa, matcha, frapuccinos, postres y horneados. Arma tu pedido y recíbelo por WhatsApp.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://vibranzacafe.com/">
+
+<!-- Open Graph -->
+<meta property="og:type" content="restaurant.menu">
+<meta property="og:title" content="Vibranza Café · Buena vibra, mejor café">
+<meta property="og:description" content="Café de especialidad, frappés y postres. Pide por WhatsApp.">
+<meta property="og:locale" content="es_MX">
+
+<!-- ============ PWA ============ -->
+<link rel="manifest" href='data:application/manifest+json,{"name":"Vibranza Café","short_name":"Vibranza","start_url":"./","display":"standalone","background_color":"#FBF7EF","theme_color":"#0F4D47","icons":[{"src":"logo.png","sizes":"512x512","type":"image/png"}]}'>
+<link rel="apple-touch-icon" href="logo.png">
+
+<!-- ============ Google Fonts ============ -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,500&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+
+<!-- ============ Schema.org: CafeOrCoffeeShop + Menu ============ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CafeOrCoffeeShop",
+  "name": "Vibranza",
+  "slogan": "Coffee Roaster & Postres",
+  "image": "logo.png",
+  "servesCuisine": ["Café de especialidad", "Matcha", "Postres", "Horneados"],
+  "priceRange": "$$",
+  "address": {
+    "@type": "PostalAddress",
+    "addressCountry": "VE"
+  },
+  "openingHoursSpecification": [
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"opens":"08:00","closes":"21:00"}
+  ],
+  "sameAs": ["https://www.instagram.com/vibranzacafe"],
+  "hasMenu": {
+    "@type": "Menu",
+    "name": "Menú Vibranza",
+    "hasMenuSection": [
+      {"@type":"MenuSection","name":"Café Caliente"},
+      {"@type":"MenuSection","name":"Café Frío"},
+      {"@type":"MenuSection","name":"Frapuccinos"},
+      {"@type":"MenuSection","name":"Matcha"},
+      {"@type":"MenuSection","name":"Limonadas y Sodas"},
+      {"@type":"MenuSection","name":"Postres y Horneados"}
+    ]
+  }
+}
+</script>
+
+<style>
+/* ================================================================
+   VIBRANZA CAFÉ — Hoja de estilos (metodología BEM + variables CSS)
+   Paleta anclada al logo real: verde petróleo profundo + crema cálida
+   ================================================================ */
+
+/* ---------- Variables de diseño (design tokens) ---------- */
+:root{
+  /* Colores principales — tomados del logo */
+  --color-petroleo: #0F4D47;     /* verde petróleo del logo (marca) */
+  --color-petroleo-osc: #093530; /* variante oscura para fondos */
+  --color-petroleo-claro: #1C6B62;
+
+  /* Cálidos y neutros */
+  --color-crema: #FBF7EF;        /* fondo principal */
+  --color-crema-osc: #F1E9D8;    /* tarjetas / separadores */
+  --color-arena: #E7D9BF;
+  --color-tinta: #18302C;        /* texto principal */
+  --color-tinta-suave: #4A5C57;  /* texto secundario */
+
+  /* Acento cálido (CTA, badges) — contrapunto al verde */
+  --color-acento: #E08A2B;       /* ámbar tostado */
+  --color-acento-osc: #C56F18;
+  --color-blanco: #FFFFFF;
+
+  /* Tipografía */
+  --fuente-titulo: "Playfair Display", Georgia, serif;
+  --fuente-cuerpo: "Lato", system-ui, -apple-system, sans-serif;
+
+  /* Escala tipográfica fluida */
+  --fs-hero: clamp(2.6rem, 7vw, 5rem);
+  --fs-h2: clamp(1.9rem, 4.5vw, 3rem);
+  --fs-h3: clamp(1.15rem, 2.4vw, 1.5rem);
+  --fs-body: clamp(1rem, 1.4vw, 1.05rem);
+
+  /* Espaciado y radios */
+  --radio: 14px;
+  --radio-sm: 10px;
+  --sombra: 0 8px 30px rgba(15, 77, 71, 0.10);
+  --sombra-hover: 0 16px 44px rgba(15, 77, 71, 0.18);
+  --transicion: 0.32s cubic-bezier(0.2, 0.7, 0.3, 1);
+
+  --header-h: 68px;
+}
+
+/* ---------- Reset ligero ---------- */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family:var(--fuente-cuerpo);
+  font-size:var(--fs-body);
+  line-height:1.6;
+  color:var(--color-tinta);
+  background:var(--color-crema);
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+a{color:inherit;text-decoration:none}
+ul{list-style:none}
+:focus-visible{outline:3px solid var(--color-acento);outline-offset:2px;border-radius:4px}
+
+/* ---------- Utilidades ---------- */
+.contenedor{width:min(1180px,92%);margin-inline:auto}
+.seccion{padding:clamp(3.5rem,8vw,6rem) 0}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.titulo-seccion{
+  font-family:var(--fuente-titulo);
+  font-size:var(--fs-h2);
+  font-weight:700;
+  line-height:1.1;
+  color:var(--color-petroleo);
+  text-align:center;
+}
+.titulo-seccion__sub{
+  display:block;
+  font-family:var(--fuente-cuerpo);
+  font-weight:700;
+  font-size:.78rem;
+  letter-spacing:.28em;
+  text-transform:uppercase;
+  color:var(--color-acento);
+  margin-bottom:.8rem;
+}
+
+/* ================================================================
+   HEADER (sticky)
+   ================================================================ */
+.header{
+  position:sticky;top:0;z-index:60;
+  height:var(--header-h);
+  display:flex;align-items:center;
+  background:rgba(251,247,239,0.86);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--color-crema-osc);
+}
+.header__inner{display:flex;align-items:center;justify-content:space-between;gap:1rem;width:100%}
+.header__brand{display:flex;align-items:center;gap:.6rem}
+.header__logo{height:30px;width:auto}
+.header__name{
+  font-family:var(--fuente-titulo);
+  font-weight:700;font-size:1.18rem;
+  color:var(--color-petroleo);
+  letter-spacing:.02em;
+}
+.header__cart{
+  position:relative;
+  display:inline-flex;align-items:center;justify-content:center;
+  width:46px;height:46px;border-radius:50%;
+  background:var(--color-petroleo);
+  color:var(--color-blanco);
+  transition:transform var(--transicion),background var(--transicion);
+}
+.header__cart:hover{background:var(--color-petroleo-claro);transform:translateY(-2px)}
+.header__cart svg{width:22px;height:22px}
+.header__badge{
+  position:absolute;top:-4px;right:-4px;
+  min-width:22px;height:22px;padding:0 5px;
+  display:grid;place-items:center;
+  background:var(--color-acento);color:#fff;
+  font-size:.72rem;font-weight:900;
+  border-radius:11px;
+  border:2px solid var(--color-crema);
+  transform:scale(0);
+  transition:transform var(--transicion);
+}
+.header__badge--activo{transform:scale(1)}
+
+/* ================================================================
+   HERO
+   ================================================================ */
+.hero{
+  position:relative;
+  min-height:calc(100svh - var(--header-h));
+  display:grid;align-items:center;
+  /* fondo: degradado petróleo + textura. Sustituye la imagen aquí ↓ */
+  background:
+    linear-gradient(180deg, rgba(9,53,48,0.78), rgba(9,53,48,0.92)),
+    radial-gradient(circle at 20% 20%, #18605700, #093530),
+    var(--color-petroleo-osc);
+  color:var(--color-crema);
+  overflow:hidden;
+}
+.hero__bg{position:absolute;inset:0;z-index:0;opacity:.18;mix-blend-mode:screen}
+.hero__inner{position:relative;z-index:2;text-align:center;padding-block:3rem}
+.hero__eyebrow{
+  display:inline-block;
+  font-weight:700;font-size:.8rem;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--color-acento);
+  margin-bottom:1.1rem;
+}
+.hero__title{
+  font-family:var(--fuente-titulo);
+  font-size:var(--fs-hero);
+  font-weight:800;line-height:1.02;
+  margin-bottom:1rem;
+}
+.hero__title em{font-style:italic;color:var(--color-acento)}
+.hero__subtitle{
+  max-width:34ch;margin:0 auto 2rem;
+  font-size:clamp(1.05rem,2vw,1.25rem);
+  color:rgba(251,247,239,0.86);
+}
+.hero__actions{display:flex;flex-wrap:wrap;gap:.9rem;justify-content:center}
+.hero__hours{
+  margin-top:2.4rem;
+  display:inline-flex;align-items:center;gap:.6rem;
+  padding:.6rem 1.1rem;border-radius:999px;
+  background:rgba(251,247,239,0.10);
+  border:1px solid rgba(251,247,239,0.20);
+  font-size:.9rem;
+}
+.hero__hours svg{width:18px;height:18px;flex-shrink:0;color:var(--color-acento)}
+
+/* Botones genéricos */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
+  padding:.85rem 1.7rem;border-radius:999px;
+  font-weight:700;font-size:1rem;letter-spacing:.01em;
+  transition:transform var(--transicion),box-shadow var(--transicion),background var(--transicion);
+  will-change:transform;
+}
+.btn--primario{background:var(--color-acento);color:#fff;box-shadow:0 10px 24px rgba(224,138,43,.35)}
+.btn--primario:hover{background:var(--color-acento-osc);transform:translateY(-2px)}
+.btn--fantasma{background:transparent;color:var(--color-crema);border:2px solid rgba(251,247,239,0.5)}
+.btn--fantasma:hover{background:rgba(251,247,239,0.12);transform:translateY(-2px)}
+.btn--bloque{width:100%}
+.btn svg{width:20px;height:20px}
+
+/* ================================================================
+   MENÚ
+   ================================================================ */
+.menu__tabs{
+  display:flex;gap:.5rem;overflow-x:auto;
+  padding:.4rem;margin:2rem auto 2.5rem;
+  width:fit-content;max-width:100%;
+  background:var(--color-crema-osc);
+  border-radius:999px;
+  scrollbar-width:none;
+}
+.menu__tabs::-webkit-scrollbar{display:none}
+.menu__tab{
+  flex-shrink:0;
+  display:inline-flex;align-items:center;gap:.4rem;
+  padding:.6rem 1.1rem;border-radius:999px;
+  font-weight:700;font-size:.92rem;white-space:nowrap;
+  color:var(--color-tinta-suave);
+  transition:background var(--transicion),color var(--transicion);
+}
+.menu__tab:hover{color:var(--color-petroleo)}
+.menu__tab--activo{background:var(--color-petroleo);color:#fff}
+
+.menu__grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:1.3rem;
+}
+.producto{
+  display:flex;flex-direction:column;
+  background:var(--color-blanco);
+  border:1px solid var(--color-crema-osc);
+  border-radius:var(--radio);
+  overflow:hidden;
+  box-shadow:var(--sombra);
+  transition:transform var(--transicion),box-shadow var(--transicion);
+  animation:aparecer .5s both;
+}
+.producto:hover{transform:translateY(-6px);box-shadow:var(--sombra-hover)}
+.producto__media{
+  position:relative;aspect-ratio:16/10;
+  background:linear-gradient(135deg,var(--color-crema-osc),var(--color-arena));
+  display:grid;place-items:center;
+}
+/* Placeholder de imagen — reemplaza por <img> real */
+.producto__emoji{font-size:3.2rem;filter:drop-shadow(0 4px 8px rgba(0,0,0,.12))}
+.producto__img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform var(--transicion);
+}
+.producto:hover .producto__img{transform:scale(1.06)}
+.producto__tag{
+  position:absolute;top:.7rem;left:.7rem;
+  padding:.25rem .65rem;border-radius:999px;
+  background:var(--color-petroleo);color:#fff;
+  font-size:.68rem;font-weight:900;letter-spacing:.05em;text-transform:uppercase;
+}
+.producto__body{display:flex;flex-direction:column;flex:1;padding:1.1rem 1.15rem 1.25rem}
+.producto__name{font-family:var(--fuente-titulo);font-weight:600;font-size:var(--fs-h3);color:var(--color-petroleo);line-height:1.2}
+.producto__desc{margin:.45rem 0 1rem;font-size:.92rem;color:var(--color-tinta-suave);flex:1}
+.producto__foot{display:flex;align-items:center;justify-content:space-between;gap:.8rem}
+.producto__price{font-weight:900;font-size:1.3rem;color:var(--color-tinta)}
+.producto__price span{font-size:.85rem;font-weight:700;color:var(--color-tinta-suave)}
+.producto__add{
+  display:inline-flex;align-items:center;gap:.4rem;
+  padding:.6rem 1rem;border-radius:999px;
+  background:var(--color-acento);color:#fff;font-weight:700;font-size:.9rem;
+  transition:transform var(--transicion),background var(--transicion);
+}
+.producto__add:hover{background:var(--color-acento-osc);transform:scale(1.04)}
+.producto__add svg{width:18px;height:18px}
+.producto__add--ok{background:var(--color-petroleo)}
+
+@keyframes aparecer{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+/* ================================================================
+   CÓMO FUNCIONA
+   ================================================================ */
+.pasos{background:var(--color-petroleo);color:var(--color-crema)}
+.pasos .titulo-seccion{color:var(--color-crema)}
+.pasos__grid{
+  display:grid;gap:1.5rem;margin-top:3rem;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+}
+.paso{text-align:center;padding:1rem}
+.paso__num{
+  display:grid;place-items:center;
+  width:64px;height:64px;margin:0 auto 1.2rem;
+  border-radius:50%;
+  background:rgba(251,247,239,0.08);
+  border:1px solid rgba(251,247,239,0.2);
+  font-family:var(--fuente-titulo);font-weight:700;font-size:1.5rem;
+  color:var(--color-acento);
+}
+.paso__title{font-family:var(--fuente-titulo);font-size:var(--fs-h3);font-weight:600;margin-bottom:.5rem}
+.paso__text{color:rgba(251,247,239,0.78);font-size:.95rem;max-width:30ch;margin-inline:auto}
+
+/* ================================================================
+   FOOTER
+   ================================================================ */
+.footer{background:var(--color-petroleo-osc);color:rgba(251,247,239,0.85);padding:3.5rem 0 5.5rem}
+.footer__grid{display:grid;gap:2.2rem;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.footer__logo{height:34px;margin-bottom:1rem;filter:brightness(0) invert(1)}
+.footer__tagline{max-width:30ch;font-size:.95rem}
+.footer__h{font-family:var(--fuente-titulo);font-size:1.15rem;color:var(--color-crema);margin-bottom:1rem}
+.footer__item{display:flex;gap:.6rem;align-items:flex-start;margin-bottom:.7rem;font-size:.92rem}
+.footer__item svg{width:18px;height:18px;flex-shrink:0;color:var(--color-acento);margin-top:2px}
+.footer__item a:hover{color:var(--color-acento)}
+.footer__bottom{margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid rgba(251,247,239,0.12);text-align:center;font-size:.82rem;color:rgba(251,247,239,0.55)}
+
+/* ================================================================
+   BOTÓN FLOTANTE WHATSAPP
+   ================================================================ */
+.fab-wa{
+  position:fixed;right:18px;bottom:18px;z-index:55;
+  display:inline-flex;align-items:center;gap:.5rem;
+  padding:.85rem 1.1rem;border-radius:999px;
+  background:#25D366;color:#fff;font-weight:700;
+  box-shadow:0 10px 30px rgba(37,211,102,.45);
+  transition:transform var(--transicion);
+}
+.fab-wa:hover{transform:translateY(-3px) scale(1.03)}
+.fab-wa svg{width:24px;height:24px}
+.fab-wa__txt{display:none}
+@media(min-width:560px){.fab-wa__txt{display:inline}}
+
+/* ================================================================
+   CARRITO (slide-in / bottom sheet)
+   ================================================================ */
+.overlay{
+  position:fixed;inset:0;z-index:70;
+  background:rgba(9,53,48,0.55);
+  backdrop-filter:blur(3px);
+  opacity:0;visibility:hidden;
+  transition:opacity var(--transicion),visibility var(--transicion);
+}
+.overlay--abierto{opacity:1;visibility:visible}
+
+.carrito{
+  position:fixed;z-index:80;
+  display:flex;flex-direction:column;
+  background:var(--color-crema);
+  transition:transform var(--transicion);
+  box-shadow:-10px 0 50px rgba(0,0,0,.2);
+  /* Mobile: bottom sheet */
+  left:0;right:0;bottom:0;
+  height:88vh;max-height:88vh;
+  border-radius:22px 22px 0 0;
+  transform:translateY(100%);
+}
+.carrito--abierto{transform:translateY(0)}
+@media(min-width:760px){
+  /* Desktop: panel lateral derecho */
+  .carrito{
+    top:0;right:0;left:auto;bottom:auto;
+    width:420px;height:100dvh;max-height:100dvh;
+    border-radius:0;
+    transform:translateX(100%);
+  }
+  .carrito--abierto{transform:translateX(0)}
+}
+.carrito__head{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.2rem 1.3rem;
+  border-bottom:1px solid var(--color-crema-osc);
+}
+.carrito__title{font-family:var(--fuente-titulo);font-size:1.4rem;font-weight:700;color:var(--color-petroleo)}
+.carrito__close{
+  width:40px;height:40px;border-radius:50%;
+  display:grid;place-items:center;
+  background:var(--color-crema-osc);color:var(--color-tinta);
+  transition:background var(--transicion)}
+.carrito__close:hover{background:var(--color-arena)}
+.carrito__close svg{width:20px;height:20px}
+
+.carrito__body{flex:1;overflow-y:auto;padding:1rem 1.3rem}
+.carrito__vacio{text-align:center;padding:3rem 1rem;color:var(--color-tinta-suave)}
+.carrito__vacio svg{width:64px;height:64px;margin:0 auto 1rem;color:var(--color-arena)}
+
+/* Ítem del carrito */
+.item{
+  display:grid;grid-template-columns:auto 1fr;gap:.5rem .9rem;
+  padding:1rem 0;border-bottom:1px solid var(--color-crema-osc);
+}
+.item__emoji{
+  grid-row:span 2;width:52px;height:52px;border-radius:12px;
+  display:grid;place-items:center;font-size:1.7rem;
+  background:linear-gradient(135deg,var(--color-crema-osc),var(--color-arena));
+}
+.item__img{
+  grid-row:span 2;width:52px;height:52px;border-radius:12px;
+  object-fit:cover;
+}
+.item__top{display:flex;justify-content:space-between;gap:.6rem;align-items:flex-start}
+.item__name{font-weight:700;font-size:.98rem;color:var(--color-petroleo);line-height:1.2}
+.item__price{font-weight:900;white-space:nowrap}
+.item__controls{display:flex;align-items:center;justify-content:space-between;gap:.6rem;margin-top:.3rem}
+.stepper{display:inline-flex;align-items:center;gap:.2rem;background:var(--color-crema-osc);border-radius:999px;padding:.2rem}
+.stepper__btn{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:#fff;color:var(--color-petroleo);font-weight:900;font-size:1.1rem;transition:background var(--transicion)}
+.stepper__btn:hover{background:var(--color-arena)}
+.stepper__qty{min-width:26px;text-align:center;font-weight:900}
+.item__remove{font-size:.8rem;color:#b3402e;font-weight:700;background:none}
+.item__remove:hover{text-decoration:underline}
+.item__note{
+  grid-column:1/-1;margin-top:.5rem;width:100%;
+  padding:.5rem .7rem;border-radius:10px;
+  border:1px solid var(--color-crema-osc);background:#fff;
+  font-family:inherit;font-size:.85rem;resize:vertical;min-height:38px;
+}
+.item__note:focus{border-color:var(--color-acento);outline:none}
+
+/* Pie del carrito (checkout) */
+.carrito__foot{padding:1.1rem 1.3rem 1.5rem;border-top:1px solid var(--color-crema-osc);background:var(--color-crema)}
+.campo{margin-bottom:.8rem}
+.campo__label{display:block;font-weight:700;font-size:.82rem;margin-bottom:.3rem;color:var(--color-tinta)}
+.campo__label span{color:#b3402e}
+.campo__input,.campo__textarea{
+  width:100%;padding:.7rem .85rem;border-radius:10px;
+  border:1.5px solid var(--color-crema-osc);background:#fff;
+  font-family:inherit;font-size:.95rem;
+  transition:border-color var(--transicion)}
+.campo__input:focus,.campo__textarea:focus{border-color:var(--color-acento);outline:none}
+.campo__input--error{border-color:#b3402e}
+.campo__textarea{resize:vertical;min-height:46px}
+.campo__error{display:none;color:#b3402e;font-size:.78rem;margin-top:.25rem;font-weight:700}
+.campo__error--visible{display:block}
+
+.metodo{display:flex;gap:.5rem;margin-bottom:.9rem}
+.metodo__opt{flex:1}
+.metodo__opt input{position:absolute;opacity:0;pointer-events:none}
+.metodo__label{
+  display:flex;align-items:center;justify-content:center;gap:.4rem;
+  padding:.6rem;border-radius:10px;font-weight:700;font-size:.88rem;
+  border:1.5px solid var(--color-crema-osc);background:#fff;
+  cursor:pointer;transition:all var(--transicion)}
+.metodo__opt input:checked + .metodo__label{
+  border-color:var(--color-petroleo);background:var(--color-petroleo);color:#fff}
+.metodo__opt input:focus-visible + .metodo__label{outline:3px solid var(--color-acento);outline-offset:2px}
+
+.resumen{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:1rem}
+.resumen__label{font-weight:700;color:var(--color-tinta-suave)}
+.resumen__total{font-family:var(--fuente-titulo);font-weight:800;font-size:1.9rem;color:var(--color-petroleo)}
+
+/* Toast de confirmación */
+.toast{
+  position:fixed;left:50%;bottom:88px;transform:translate(-50%,20px);
+  z-index:90;
+  padding:.8rem 1.3rem;border-radius:999px;
+  background:var(--color-petroleo);color:#fff;font-weight:700;font-size:.9rem;
+  box-shadow:var(--sombra-hover);
+  opacity:0;visibility:hidden;
+  transition:opacity .3s,transform .3s,visibility .3s;
+}
+.toast--visible{opacity:1;visibility:visible;transform:translate(-50%,0)}
+
+/* ---------- Accesibilidad: movimiento reducido ---------- */
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+}
+</style>
+</head>
+<body>
+
+<!-- ================= HEADER ================= -->
+<header class="header">
+  <div class="contenedor header__inner">
+    <a class="header__brand" href="#inicio" aria-label="Vibranza Café — inicio">
+      <img class="header__logo" src="logo.png" alt="Logotipo de Vibranza Café">
+    </a>
+    <button class="header__cart" id="abrirCarrito" aria-label="Abrir carrito de pedido">
+      <!-- Icono carrito -->
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+        <path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/>
+      </svg>
+      <span class="header__badge" id="badgeCarrito" aria-live="polite">0</span>
+    </button>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="hero" id="inicio">
+  <!-- Sustituye este div por <img class="hero__bg" src="tu-foto.jpg" alt=""> -->
+  <div class="hero__bg" aria-hidden="true"></div>
+  <div class="contenedor hero__inner">
+    <span class="hero__eyebrow">Coffee Roaster & Postres</span>
+    <h1 class="hero__title">Café tostado<br><em>en casa</em></h1>
+    <p class="hero__subtitle">Café de especialidad, matcha con proteína, frapuccinos y postres recién hechos. Arma tu pedido y nosotros nos encargamos del resto.</p>
+    <div class="hero__actions">
+      <a class="btn btn--primario" href="#menu">
+        Ver menú
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <a class="btn btn--fantasma" href="#como-funciona">¿Cómo funciona?</a>
+    </div>
+    <div class="hero__hours">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+      <span id="heroHorario">Tostadores de café · Análisis profesional Q-Grade</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MENÚ ================= -->
+<section class="seccion" id="menu">
+  <div class="contenedor">
+    <h2 class="titulo-seccion">
+      <span class="titulo-seccion__sub">Nuestro menú</span>
+      Elige tus favoritos
+    </h2>
+
+    <!-- Tabs de categorías (se generan también por JS, pero quedan accesibles) -->
+    <div class="menu__tabs" id="menuTabs" role="tablist" aria-label="Categorías del menú"></div>
+
+    <!-- Grid de productos -->
+    <div class="menu__grid" id="menuGrid"></div>
+  </div>
+</section>
+
+<!-- ================= CÓMO FUNCIONA ================= -->
+<section class="seccion pasos" id="como-funciona">
+  <div class="contenedor">
+    <h2 class="titulo-seccion">
+      <span class="titulo-seccion__sub">Así de fácil</span>
+      Tu pedido en 3 pasos
+    </h2>
+    <div class="pasos__grid">
+      <article class="paso">
+        <div class="paso__num">1</div>
+        <h3 class="paso__title">Elige</h3>
+        <p class="paso__text">Explora el menú y agrega tus bebidas, postres y snacks al carrito.</p>
+      </article>
+      <article class="paso">
+        <div class="paso__num">2</div>
+        <h3 class="paso__title">Personaliza</h3>
+        <p class="paso__text">Ajusta cantidades y añade notas: leche de almendra, sin azúcar, extra shot…</p>
+      </article>
+      <article class="paso">
+        <div class="paso__num">3</div>
+        <h3 class="paso__title">Disfruta</h3>
+        <p class="paso__text">Envía tu pedido por WhatsApp y recógelo en tienda o pídelo a domicilio.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="footer" id="contacto">
+  <div class="contenedor footer__grid">
+    <div>
+      <img class="footer__logo" src="logo.png" alt="Vibranza Café">
+      <p class="footer__tagline" id="footTagline">Buena vibra, mejor café ☕✨</p>
+    </div>
+    <div>
+      <h3 class="footer__h">Visítanos</h3>
+      <p class="footer__item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span id="footDireccion">Calle Principal #123, Colonia Centro, Ciudad</span>
+      </p>
+      <p class="footer__item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.6a2 2 0 0 1-.4 2.1L8 9.6a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.4c.8.3 1.7.5 2.6.6a2 2 0 0 1 1.7 2Z"/></svg>
+        <a id="footTelefono" href="#">55-XXXX-XXXX</a>
+      </p>
+    </div>
+    <div>
+      <h3 class="footer__h">Horarios</h3>
+      <p class="footer__item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        <span id="footHorario">Lun-Dom: 8:00–21:00</span>
+      </p>
+      <p class="footer__item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        <a id="footInstagram" href="https://www.instagram.com/vibranzacafe" target="_blank" rel="noopener">@vibranzacafe</a>
+      </p>
+    </div>
+  </div>
+  <div class="contenedor footer__bottom">
+    © <span id="anio"></span> Vibranza · Coffee Roaster & Postres
+  </div>
+</footer>
+
+<!-- ================= BOTÓN FLOTANTE WHATSAPP ================= -->
+<a class="fab-wa" id="fabWhatsapp" href="#" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.6.2-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-1.6-.8-2.7-1.5-3.7-3.3-.3-.5.3-.5.8-1.6.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.5c-.2 0-.5.1-.7.3-.9.9-1.1 2-.8 3.3.4 1.7 1.5 3.1 1.7 3.4.2.3 2.9 4.4 7 6 2.5 1 3.5.9 4.7.7.7-.1 1.7-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.2-.6-.4M12 22a10 10 0 0 1-5.1-1.4L3 22l1.4-3.8A10 10 0 1 1 12 22m0-18a8 8 0 0 0-6.8 12.2l.2.3-.8 2.2 2.3-.7.3.2A8 8 0 1 0 12 4"/></svg>
+  <span class="fab-wa__txt">WhatsApp</span>
+</a>
+
+<!-- ================= CARRITO ================= -->
+<div class="overlay" id="overlay"></div>
+<aside class="carrito" id="carrito" aria-label="Tu pedido" aria-hidden="true">
+  <div class="carrito__head">
+    <h2 class="carrito__title">Tu pedido</h2>
+    <button class="carrito__close" id="cerrarCarrito" aria-label="Cerrar carrito">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+
+  <div class="carrito__body" id="carritoBody"><!-- ítems dinámicos --></div>
+
+  <!-- Pie con checkout: oculto si carrito vacío -->
+  <div class="carrito__foot" id="carritoFoot" hidden>
+    <div class="metodo" role="radiogroup" aria-label="Método de entrega">
+      <label class="metodo__opt">
+        <input type="radio" name="metodo" value="Recoger en tienda" checked>
+        <span class="metodo__label">🏪 Recoger</span>
+      </label>
+      <label class="metodo__opt">
+        <input type="radio" name="metodo" value="Delivery">
+        <span class="metodo__label">🛵 Delivery</span>
+      </label>
+    </div>
+
+    <div class="campo">
+      <label class="campo__label" for="inpNombre">Tu nombre <span>*</span></label>
+      <input class="campo__input" id="inpNombre" type="text" placeholder="Ej. Ana López" autocomplete="name" required>
+      <p class="campo__error" id="errNombre">Necesitamos tu nombre para el pedido.</p>
+    </div>
+
+    <div class="campo">
+      <label class="campo__label" for="inpTel">Teléfono</label>
+      <input class="campo__input" id="inpTel" type="tel" placeholder="Ej. 55 1234 5678" autocomplete="tel" inputmode="tel">
+    </div>
+
+    <div class="campo">
+      <label class="campo__label" for="inpNotas">Notas generales</label>
+      <textarea class="campo__textarea" id="inpNotas" placeholder="Ej. Llego en 15 min, tocar el timbre…"></textarea>
+    </div>
+
+    <div class="resumen">
+      <span class="resumen__label">Total</span>
+      <span class="resumen__total" id="resumenTotal">$0.00</span>
+    </div>
+
+    <button class="btn btn--primario btn--bloque" id="enviarPedido">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.6.2-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-1.6-.8-2.7-1.5-3.7-3.3-.3-.5.3-.5.8-1.6.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.5c-.2 0-.5.1-.7.3-.9.9-1.1 2-.8 3.3.4 1.7 1.5 3.1 1.7 3.4.2.3 2.9 4.4 7 6 2.5 1 3.5.9 4.7.7.7-.1 1.7-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.2-.6-.4M12 22a10 10 0 0 1-5.1-1.4L3 22l1.4-3.8A10 10 0 1 1 12 22m0-18a8 8 0 0 0-6.8 12.2l.2.3-.8 2.2 2.3-.7.3.2A8 8 0 1 0 12 4"/></svg>
+      Enviar pedido por WhatsApp
+    </button>
+  </div>
+</aside>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* ================================================================
+   VIBRANZA CAFÉ — Lógica de la aplicación (Vanilla JS ES6+)
+   ================================================================ */
+
+/* ---------- CONFIGURACIÓN INICIAL ----------
+   👉 Edita aquí tus datos reales. */
+const CONFIG = {
+  negocio: {
+    nombre: "Vibranza",
+    eslogan: "Coffee Roaster & Postres ☕✨",
+    whatsapp: "58XXXXXXXXXX",              // ← PON AQUÍ TU NÚMERO (58 + área + número, sin espacios ni +)
+    direccion: "Agrega aquí tu dirección",  // ← Tu dirección real
+    horario: "Lun-Dom: 8:00-21:00",         // ← Tu horario real
+    telefono: "0XXX-XXXXXXX",               // ← Tu teléfono real
+    instagram: "@vibranzacafe",
+    instagram_url: "https://www.instagram.com/vibranzacafe"
+  },
+  // Precios del menú en dólares (USD), tal como en la carta
+  moneda: { simbolo: "$", codigo: "USD", pais: "en-US" }
+};
+
+/* ---------- MENÚ (objeto editable) ----------
+   Cada producto: id, nombre, desc, precio (MXN), categoria, emoji (placeholder de imagen),
+   tag opcional. Reemplaza "emoji" por una propiedad "img" si usas fotos reales. */
+const CATEGORIAS = [
+  { id: "calientes",   nombre: "Café Caliente",  icono: "☕" },
+  { id: "frias",       nombre: "Café Frío",      icono: "🧊" },
+  { id: "frapuccinos", nombre: "Frapuccinos",    icono: "🥤" },
+  { id: "matcha",      nombre: "Matcha",         icono: "🍵" },
+  { id: "proteina",    nombre: "Matcha Proteína",icono: "💪" },
+  { id: "limonadas",   nombre: "Limonadas",      icono: "🍋" },
+  { id: "sodas",       nombre: "Sodas",          icono: "🥤" },
+  { id: "postres",     nombre: "Postres Fríos",  icono: "🍰" },
+  { id: "horneados",   nombre: "Horneados",      icono: "🥐" },
+  { id: "galletas",    nombre: "Galletas",       icono: "🍪" }
+];
+
+const MENU = [
+  { id: "c01", nombre: "Espresso / Dopio", desc: "Shot intenso de nuestra mezcla de la casa, recién extraído.", precio: 1.50, categoria: "calientes", img: "https://images.unsplash.com/photo-1510707577719-ae7c14805e3a?auto=format&fit=crop&w=500&q=70" },
+  { id: "c02", nombre: "Lungo", desc: "Espresso largo, más suave y aromático.", precio: 1.50, categoria: "calientes", img: "https://images.unsplash.com/photo-1521302080334-4bebac2763a6?auto=format&fit=crop&w=500&q=70" },
+  { id: "c03", nombre: "Americano", desc: "Espresso con agua caliente. Clásico y equilibrado.", precio: 2.00, categoria: "calientes", img: "https://images.unsplash.com/photo-1551030173-122aabc4489c?auto=format&fit=crop&w=500&q=70" },
+  { id: "c04", nombre: "Macchiato", desc: "Espresso manchado con un toque de leche espumada.", precio: 2.00, categoria: "calientes", img: "https://images.unsplash.com/photo-1485808191679-5f86510681a2?auto=format&fit=crop&w=500&q=70" },
+  { id: "c05", nombre: "Cappuccino", desc: "Espresso, leche vaporizada y espuma sedosa.", precio: 3.00, categoria: "calientes", img: "https://images.unsplash.com/photo-1572442388796-11668a67e53d?auto=format&fit=crop&w=500&q=70", tag: "Favorito" },
+  { id: "c06", nombre: "Latte", desc: "Cremoso, con leche vaporizada y arte en cada taza.", precio: 3.00, categoria: "calientes", img: "https://images.unsplash.com/photo-1561882468-9110e03e0f78?auto=format&fit=crop&w=500&q=70" },
+  { id: "c07", nombre: "Mocca", desc: "Espresso con chocolate y leche. Dulce y reconfortante.", precio: 3.50, categoria: "calientes", img: "https://images.unsplash.com/photo-1578314675249-a6910f80cc4e?auto=format&fit=crop&w=500&q=70" },
+  { id: "f01", nombre: "Iced Black", desc: "Café negro frío sobre hielo. Puro y refrescante.", precio: 2.50, categoria: "frias", img: "https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?auto=format&fit=crop&w=500&q=70" },
+  { id: "f02", nombre: "Iced Latte", desc: "Espresso y leche fría sobre hielo.", precio: 3.00, categoria: "frias", img: "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=500&q=70" },
+  { id: "f03", nombre: "Iced Latte Vainilla Francesa", desc: "Latte frío con vainilla francesa.", precio: 3.50, categoria: "frias", img: "https://images.unsplash.com/photo-1599490659213-e2b9527bd087?auto=format&fit=crop&w=500&q=70" },
+  { id: "f04", nombre: "Toddy Frío", desc: "Extracción en frío suave, baja acidez.", precio: 4.00, categoria: "frias", img: "https://images.unsplash.com/photo-1592663527359-cf6642f54cff?auto=format&fit=crop&w=500&q=70", tag: "Top" },
+  { id: "fr01", nombre: "Frapuccino Clásico", desc: "Café batido con hielo y crema. El de siempre.", precio: 4.00, categoria: "frapuccinos", img: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=500&q=70" },
+  { id: "fr02", nombre: "Frapuccino Oreo", desc: "Galleta Oreo licuada con café y crema.", precio: 5.00, categoria: "frapuccinos", img: "https://images.unsplash.com/photo-1586917079578-4b8c0a36b6f8?auto=format&fit=crop&w=500&q=70" },
+  { id: "fr03", nombre: "Caramel + Kraft", desc: "Caramelo y queso crema Kraft. Indulgente.", precio: 5.00, categoria: "frapuccinos", img: "https://images.unsplash.com/photo-1599639668273-01a4f1fa50a0?auto=format&fit=crop&w=500&q=70" },
+  { id: "fr04", nombre: "Strawberries & Crème", desc: "A base de fresa, sin café. Cremoso y dulce.", precio: 5.00, categoria: "frapuccinos", img: "https://images.unsplash.com/photo-1553787499-6f9133860278?auto=format&fit=crop&w=500&q=70" },
+  { id: "fr05", nombre: "Matcha Crème", desc: "Matcha batido con hielo y crema.", precio: 5.00, categoria: "frapuccinos", img: "https://images.unsplash.com/photo-1536256263959-770b48d82b0a?auto=format&fit=crop&w=500&q=70" },
+  { id: "m01", nombre: "Matcha Latte", desc: "Matcha ceremonial con leche. Suave y herbal.", precio: 4.00, categoria: "matcha", img: "https://images.unsplash.com/photo-1515823662972-da6a2e4d3002?auto=format&fit=crop&w=500&q=70" },
+  { id: "m02", nombre: "Matcha Latte Parchita", desc: "Matcha con un giro tropical de parchita.", precio: 4.00, categoria: "matcha", img: "https://images.unsplash.com/photo-1536256263959-770b48d82b0a?auto=format&fit=crop&w=500&q=70" },
+  { id: "m03", nombre: "Matcha Latte Fresa", desc: "Matcha con fresa natural.", precio: 4.00, categoria: "matcha", img: "https://images.unsplash.com/photo-1564890369478-c89ca6d9cde9?auto=format&fit=crop&w=500&q=70" },
+  { id: "m04", nombre: "Matcha Latte Vainilla Francesa", desc: "Matcha con vainilla francesa.", precio: 4.00, categoria: "matcha", img: "https://images.unsplash.com/photo-1515823662972-da6a2e4d3002?auto=format&fit=crop&w=500&q=70" },
+  { id: "mp01", nombre: "Matcha Proteína Clásico", desc: "Con proteína Sascha Fitness. Energía limpia.", precio: 7.00, categoria: "proteina", img: "https://images.unsplash.com/photo-1517256064527-09c73fc73e38?auto=format&fit=crop&w=500&q=70", tag: "Fit" },
+  { id: "mp02", nombre: "Matcha Proteína Caramel", desc: "Proteína Sascha Fitness con caramelo.", precio: 8.00, categoria: "proteina", img: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=500&q=70" },
+  { id: "mp03", nombre: "Matcha Proteína Dark Choco", desc: "Proteína Sascha Fitness con chocolate oscuro.", precio: 8.00, categoria: "proteina", img: "https://images.unsplash.com/photo-1606312619070-d48b4c652a52?auto=format&fit=crop&w=500&q=70" },
+  { id: "l01", nombre: "Limonada Clásica", desc: "Limón natural, fría y refrescante.", precio: 3.50, categoria: "limonadas", img: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=500&q=70" },
+  { id: "l02", nombre: "Limonada Fresa", desc: "Limonada con fresa natural.", precio: 3.50, categoria: "limonadas", img: "https://images.unsplash.com/photo-1499638673689-79a0b5115d87?auto=format&fit=crop&w=500&q=70" },
+  { id: "l03", nombre: "Limonada Parchita", desc: "Limonada con maracuyá tropical.", precio: 3.50, categoria: "limonadas", img: "https://images.unsplash.com/photo-1546171753-97d7676e4602?auto=format&fit=crop&w=500&q=70" },
+  { id: "l04", nombre: "Limonada Matcha", desc: "Limonada con un toque de matcha.", precio: 3.50, categoria: "limonadas", img: "https://images.unsplash.com/photo-1564890369478-c89ca6d9cde9?auto=format&fit=crop&w=500&q=70" },
+  { id: "so01", nombre: "Soda Limón", desc: "Soda artesanal de limón.", precio: 3.50, categoria: "sodas", img: "https://images.unsplash.com/photo-1437418747212-8d9709afab22?auto=format&fit=crop&w=500&q=70" },
+  { id: "so02", nombre: "Soda Parchita", desc: "Soda de maracuyá.", precio: 3.50, categoria: "sodas", img: "https://images.unsplash.com/photo-1600271886742-f049cd451bba?auto=format&fit=crop&w=500&q=70" },
+  { id: "so03", nombre: "Soda Frutos Rojos", desc: "Soda de frutos rojos.", precio: 3.50, categoria: "sodas", img: "https://images.unsplash.com/photo-1605713288610-00d8f9a7c1f8?auto=format&fit=crop&w=500&q=70" },
+  { id: "p01", nombre: "Cuchareables", desc: "Postre cremoso para disfrutar a cucharadas.", precio: 3.00, categoria: "postres", img: "https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=500&q=70" },
+  { id: "p02", nombre: "Tiramisú", desc: "Clásico italiano con café y mascarpone.", precio: 3.00, categoria: "postres", img: "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?auto=format&fit=crop&w=500&q=70" },
+  { id: "p03", nombre: "Cheesecake", desc: "Cremoso y suave, con base de galleta.", precio: 5.00, categoria: "postres", img: "https://images.unsplash.com/photo-1533134242443-d4fd215305ad?auto=format&fit=crop&w=500&q=70" },
+  { id: "p04", nombre: "Choco Dubai", desc: "Inspirado en el viral chocolate Dubai.", precio: 5.00, categoria: "postres", img: "https://images.unsplash.com/photo-1606312619070-d48b4c652a52?auto=format&fit=crop&w=500&q=70", tag: "Nuevo" },
+  { id: "p05", nombre: "Mantecada", desc: "Esponjosa mantecada casera.", precio: 3.00, categoria: "postres", img: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=500&q=70" },
+  { id: "p06", nombre: "Torta de Zanahoria", desc: "Con frosting de queso crema.", precio: 4.00, categoria: "postres", img: "https://images.unsplash.com/photo-1621303837174-89787a7d4729?auto=format&fit=crop&w=500&q=70" },
+  { id: "h01", nombre: "Cachito Jamón y Tocineta", desc: "Horneado relleno de jamón y tocineta.", precio: 3.00, categoria: "horneados", img: "https://images.unsplash.com/photo-1568051243858-533a607809a5?auto=format&fit=crop&w=500&q=70" },
+  { id: "h02", nombre: "Cachito Jamón y Queso Blanco", desc: "Horneado de jamón y queso blanco.", precio: 3.00, categoria: "horneados", img: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=500&q=70" },
+  { id: "h03", nombre: "Cachito Pavo + Queso Crema", desc: "Jamón de pavo con queso crema.", precio: 3.00, categoria: "horneados", img: "https://images.unsplash.com/photo-1585478259715-876acc5be8eb?auto=format&fit=crop&w=500&q=70" },
+  { id: "h04", nombre: "Mortadela Italiana + Mozzarella", desc: "Mortadela italiana con mozzarella.", precio: 4.00, categoria: "horneados", img: "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=500&q=70" },
+  { id: "h05", nombre: "Empanada del Día", desc: "Consulta los sabores del día.", precio: 2.50, categoria: "horneados", img: "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?auto=format&fit=crop&w=500&q=70" },
+  { id: "g01", nombre: "Galleta (1 und.)", desc: "Galleta artesanal recién horneada.", precio: 2.50, categoria: "galletas", img: "https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&w=500&q=70" },
+  { id: "g02", nombre: "Galletas (3 unds.)", desc: "Tres galletas artesanales. Ahorra.", precio: 7.00, categoria: "galletas", img: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=500&q=70" },
+  { id: "g03", nombre: "Galletas (6 unds.)", desc: "Media docena para compartir.", precio: 13.00, categoria: "galletas", img: "https://images.unsplash.com/photo-1590080875515-8a3a8dc5735e?auto=format&fit=crop&w=500&q=70", tag: "Combo" },
+  { id: "g04", nombre: "Galletas (10 unds.)", desc: "Diez galletas. El mejor precio.", precio: 20.00, categoria: "galletas", img: "https://images.unsplash.com/photo-1481391319762-47dff72954d9?auto=format&fit=crop&w=500&q=70" },
+];
+
+/* ---------- Estado y utilidades ---------- */
+const LS_KEY = "vibranza_carrito_v1";
+let carrito = cargarCarrito();          // array de {id, qty, nota}
+let categoriaActiva = CATEGORIAS[0].id;
+
+const formatoMoneda = new Intl.NumberFormat(CONFIG.moneda.pais, {
+  style: "currency", currency: CONFIG.moneda.codigo
+});
+const $ = sel => document.querySelector(sel);
+const productoPorId = id => MENU.find(p => p.id === id);
+
+function cargarCarrito(){
+  try { return JSON.parse(localStorage.getItem(LS_KEY)) || []; }
+  catch { return []; }
+}
+function guardarCarrito(){
+  localStorage.setItem(LS_KEY, JSON.stringify(carrito));
+}
+
+/* ---------- Inyectar datos de CONFIG en la página ---------- */
+function aplicarConfig(){
+  $("#footTagline").textContent  = CONFIG.negocio.eslogan;
+  $("#footDireccion").textContent = CONFIG.negocio.direccion;
+  $("#footTelefono").textContent = CONFIG.negocio.telefono;
+  $("#footTelefono").href = "tel:" + CONFIG.negocio.telefono.replace(/[^0-9+]/g,"");
+  $("#footInstagram").textContent = CONFIG.negocio.instagram;
+  $("#footInstagram").href = CONFIG.negocio.instagram_url;
+  $("#anio").textContent = new Date().getFullYear();
+  // Enlace base del FAB de WhatsApp
+  $("#fabWhatsapp").href = `https://wa.me/${CONFIG.negocio.whatsapp}?text=${encodeURIComponent("¡Hola Vibranza! Quiero hacer un pedido ☕")}`;
+}
+
+/* ---------- Render: tabs de categorías ---------- */
+function renderTabs(){
+  const cont = $("#menuTabs");
+  cont.innerHTML = "";
+  CATEGORIAS.forEach(cat => {
+    const btn = document.createElement("button");
+    btn.className = "menu__tab" + (cat.id === categoriaActiva ? " menu__tab--activo" : "");
+    btn.setAttribute("role","tab");
+    btn.setAttribute("aria-selected", cat.id === categoriaActiva ? "true" : "false");
+    btn.innerHTML = `<span aria-hidden="true">${cat.icono}</span> ${cat.nombre}`;
+    btn.addEventListener("click", () => {
+      categoriaActiva = cat.id;
+      renderTabs();
+      renderProductos();
+    });
+    cont.appendChild(btn);
+  });
+}
+
+/* ---------- Render: grid de productos ---------- */
+function renderProductos(){
+  const grid = $("#menuGrid");
+  grid.innerHTML = "";
+  MENU.filter(p => p.categoria === categoriaActiva).forEach((p, i) => {
+    const card = document.createElement("article");
+    card.className = "producto";
+    card.style.animationDelay = (i * 0.05) + "s";
+    card.innerHTML = `
+      <div class="producto__media">
+        ${p.tag ? `<span class="producto__tag">${p.tag}</span>` : ""}
+        <img class="producto__img" src="${p.img}" alt="${p.nombre}" loading="lazy" decoding="async"
+             onerror="this.classList.add('producto__img--error');this.replaceWith(Object.assign(document.createElement('span'),{className:'producto__emoji',textContent:'☕'}))">
+      </div>
+      <div class="producto__body">
+        <h3 class="producto__name">${p.nombre}</h3>
+        <p class="producto__desc">${p.desc}</p>
+        <div class="producto__foot">
+          <span class="producto__price">${formatoMoneda.format(p.precio)}</span>
+          <button class="producto__add" data-id="${p.id}" aria-label="Agregar ${p.nombre} al pedido">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+            Agregar
+          </button>
+        </div>
+      </div>`;
+    grid.appendChild(card);
+  });
+  // Listeners de "Agregar"
+  grid.querySelectorAll(".producto__add").forEach(btn => {
+    btn.addEventListener("click", () => agregar(btn.dataset.id, btn));
+  });
+}
+
+/* ---------- Carrito: operaciones ---------- */
+function agregar(id, btn){
+  const item = carrito.find(i => i.id === id);
+  if(item){ item.qty++; }
+  else { carrito.push({ id, qty: 1, nota: "" }); }
+  guardarCarrito();
+  actualizarBadge();
+  renderCarrito();
+  // Feedback visual en el botón
+  if(btn){
+    const original = btn.innerHTML;
+    btn.classList.add("producto__add--ok");
+    btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Agregado`;
+    setTimeout(() => { btn.classList.remove("producto__add--ok"); btn.innerHTML = original; }, 1100);
+  }
+  mostrarToast("Agregado a tu pedido ☕");
+}
+function cambiarCantidad(id, delta){
+  const item = carrito.find(i => i.id === id);
+  if(!item) return;
+  item.qty += delta;
+  if(item.qty <= 0) carrito = carrito.filter(i => i.id !== id);
+  guardarCarrito();
+  actualizarBadge();
+  renderCarrito();
+}
+function quitar(id){
+  carrito = carrito.filter(i => i.id !== id);
+  guardarCarrito();
+  actualizarBadge();
+  renderCarrito();
+}
+function actualizarNota(id, texto){
+  const item = carrito.find(i => i.id === id);
+  if(item){ item.nota = texto; guardarCarrito(); }
+}
+function totalCarrito(){
+  return carrito.reduce((acc, i) => acc + productoPorId(i.id).precio * i.qty, 0);
+}
+function unidadesCarrito(){
+  return carrito.reduce((acc, i) => acc + i.qty, 0);
+}
+
+/* ---------- Render: badge ---------- */
+function actualizarBadge(){
+  const badge = $("#badgeCarrito");
+  const n = unidadesCarrito();
+  badge.textContent = n;
+  badge.classList.toggle("header__badge--activo", n > 0);
+}
+
+/* ---------- Render: contenido del carrito ---------- */
+function renderCarrito(){
+  const body = $("#carritoBody");
+  const foot = $("#carritoFoot");
+
+  if(carrito.length === 0){
+    body.innerHTML = `
+      <div class="carrito__vacio">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg>
+        <p>Tu pedido está vacío.<br>¡Agrega algo rico del menú!</p>
+      </div>`;
+    foot.hidden = true;
+    return;
+  }
+
+  foot.hidden = false;
+  body.innerHTML = "";
+  carrito.forEach(i => {
+    const p = productoPorId(i.id);
+    const row = document.createElement("div");
+    row.className = "item";
+    row.innerHTML = `
+      <img class="item__img" src="${p.img}" alt="${p.nombre}" loading="lazy" decoding="async"
+           onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'item__emoji',textContent:'☕'}))">
+      <div>
+        <div class="item__top">
+          <span class="item__name">${p.nombre}</span>
+          <span class="item__price">${formatoMoneda.format(p.precio * i.qty)}</span>
+        </div>
+        <div class="item__controls">
+          <div class="stepper">
+            <button class="stepper__btn" data-act="menos" data-id="${i.id}" aria-label="Quitar uno de ${p.nombre}">−</button>
+            <span class="stepper__qty" aria-label="Cantidad">${i.qty}</span>
+            <button class="stepper__btn" data-act="mas" data-id="${i.id}" aria-label="Agregar uno de ${p.nombre}">+</button>
+          </div>
+          <button class="item__remove" data-act="quitar" data-id="${i.id}">Quitar</button>
+        </div>
+      </div>
+      <textarea class="item__note" data-id="${i.id}" placeholder="Nota: leche de almendra, sin azúcar…" aria-label="Nota para ${p.nombre}">${i.nota || ""}</textarea>`;
+    body.appendChild(row);
+  });
+
+  // Listeners de los controles
+  body.querySelectorAll(".stepper__btn, .item__remove").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const { act, id } = btn.dataset;
+      if(act === "mas") cambiarCantidad(id, 1);
+      else if(act === "menos") cambiarCantidad(id, -1);
+      else if(act === "quitar") quitar(id);
+    });
+  });
+  body.querySelectorAll(".item__note").forEach(t => {
+    t.addEventListener("input", () => actualizarNota(t.dataset.id, t.value));
+  });
+
+  $("#resumenTotal").textContent = formatoMoneda.format(totalCarrito());
+}
+
+/* ---------- Abrir / cerrar carrito ---------- */
+function abrirCarrito(){
+  $("#carrito").classList.add("carrito--abierto");
+  $("#carrito").setAttribute("aria-hidden","false");
+  $("#overlay").classList.add("overlay--abierto");
+  document.body.style.overflow = "hidden";
+}
+function cerrarCarrito(){
+  $("#carrito").classList.remove("carrito--abierto");
+  $("#carrito").setAttribute("aria-hidden","true");
+  $("#overlay").classList.remove("overlay--abierto");
+  document.body.style.overflow = "";
+}
+
+/* ---------- Toast ---------- */
+let toastTimer;
+function mostrarToast(msg){
+  const t = $("#toast");
+  t.textContent = msg;
+  t.classList.add("toast--visible");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove("toast--visible"), 2200);
+}
+
+/* ---------- Construir mensaje y enviar a WhatsApp ---------- */
+function enviarPedido(){
+  // Validación: carrito no vacío
+  if(carrito.length === 0){
+    mostrarToast("Tu pedido está vacío 🛒");
+    return;
+  }
+  // Validación: nombre obligatorio
+  const nombre = $("#inpNombre").value.trim();
+  const errNombre = $("#errNombre");
+  const inpNombre = $("#inpNombre");
+  if(!nombre){
+    inpNombre.classList.add("campo__input--error");
+    errNombre.classList.add("campo__error--visible");
+    inpNombre.focus();
+    return;
+  }
+  inpNombre.classList.remove("campo__input--error");
+  errNombre.classList.remove("campo__error--visible");
+
+  const telefono = $("#inpTel").value.trim();
+  const notas    = $("#inpNotas").value.trim();
+  const metodo   = document.querySelector('input[name="metodo"]:checked').value;
+
+  // Construir mensaje estructurado
+  const linea = "━━━━━━━━━━━━━━━━━━━━";
+  let msg = `🧾 *NUEVO PEDIDO - ${CONFIG.negocio.nombre}*\n${linea}\n`;
+  msg += `👤 Cliente: ${nombre}\n`;
+  if(telefono) msg += `📞 Teléfono: ${telefono}\n`;
+  msg += `🛵 Método: ${metodo}\n`;
+  if(notas) msg += `📝 Notas: ${notas}\n`;
+  msg += `\n📋 *PRODUCTOS:*\n`;
+
+  carrito.forEach(i => {
+    const p = productoPorId(i.id);
+    const subtotal = formatoMoneda.format(p.precio * i.qty);
+    msg += `✅ ${i.qty}x ${p.nombre} ..... ${subtotal}\n`;
+    if(i.nota && i.nota.trim()) msg += `   ↳ Nota: ${i.nota.trim()}\n`;
+  });
+
+  msg += `${linea}\n💰 *TOTAL: ${formatoMoneda.format(totalCarrito())}*`;
+
+  // Abrir WhatsApp
+  const url = `https://wa.me/${CONFIG.negocio.whatsapp}?text=${encodeURIComponent(msg)}`;
+  window.open(url, "_blank", "noopener");
+  mostrarToast("Abriendo WhatsApp… ✅");
+}
+
+/* ---------- Inicialización ---------- */
+function init(){
+  aplicarConfig();
+  renderTabs();
+  renderProductos();
+  renderCarrito();
+  actualizarBadge();
+
+  // Eventos globales
+  $("#abrirCarrito").addEventListener("click", abrirCarrito);
+  $("#cerrarCarrito").addEventListener("click", cerrarCarrito);
+  $("#overlay").addEventListener("click", cerrarCarrito);
+  $("#enviarPedido").addEventListener("click", enviarPedido);
+
+  // Cerrar carrito con tecla Escape
+  document.addEventListener("keydown", e => {
+    if(e.key === "Escape") cerrarCarrito();
+  });
+
+  // Limpiar error del nombre al escribir
+  $("#inpNombre").addEventListener("input", () => {
+    $("#inpNombre").classList.remove("campo__input--error");
+    $("#errNombre").classList.remove("campo__error--visible");
+  });
+}
+
+document.addEventListener("DOMContentLoaded", init);
+</script>
+</body>
+</html>
